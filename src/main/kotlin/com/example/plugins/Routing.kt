@@ -10,7 +10,24 @@ fun Application.configureRouting() {
 
     routing {
         get("/") {
-            call.respondText("Hello World!")
+            call.respondText("Hello Welcome to the HomePage of Expense Sharing Application")
         }
+
+        post("/createuser"){
+
+        }
+
+        put("/creategroup"){
+            // usera are already exsisting we are just forming a group out of them
+            // so we are kind of updating therefore using put instead of post
+        }
+
+        post("/transaction"){
+
+        }
+
+
+
+
     }
 }
