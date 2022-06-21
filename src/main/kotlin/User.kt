@@ -12,3 +12,9 @@ class UserDraft(
     val mobile : String,
     val groupName : String
     )
+
+class Transaction(
+    val amount : Int,
+    val groupName : String,
+    val memberName : String
+)

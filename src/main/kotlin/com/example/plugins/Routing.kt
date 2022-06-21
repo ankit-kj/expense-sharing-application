@@ -1,6 +1,7 @@
 package com.example.plugins
 
 import MySQLhandler
+import Transaction
 import User
 import UserDraft
 import io.ktor.server.routing.*
@@ -22,14 +23,19 @@ fun Application.configureRouting() {
 
         post("/addUser"){
             val newUserDraft = call.receive<UserDraft>()
-            val newUser = repository.addUser(newUserDraft)
+            val newUserId = repository.addUser(newUserDraft)
 
-            if(newUser == null) {
+            if(newUserId == -1) {
                 call.respond(HttpStatusCode.BadRequest , "No such group exists ...enter a valid group name")
                 return@post
             }
 
-            call.respond(newUser)
+            if(newUserId == -2){
+                call.respond(HttpStatusCode.BadRequest , "User with same name already exists...enter a unique name")
+                return@post
+            }
+
+            call.respond(User(newUserId , newUserDraft.name, newUserDraft.email, newUserDraft.mobile))
         }
 
         post("/addGroup"){
@@ -50,7 +56,15 @@ fun Application.configureRouting() {
         }
 
         post("/addTransaction"){
+            val transaction = call.receive<Transaction>()
+            val rnVal = repository.addTransaction(transaction)
 
+            if(rnVal == -1){
+                call.respond(HttpStatusCode.BadRequest , "No such group exists")
+                return@post
+            }
+
+            call.respond(HttpStatusCode.OK)
         }
 
     }

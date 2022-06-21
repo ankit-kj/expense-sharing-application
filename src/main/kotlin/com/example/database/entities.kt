@@ -38,6 +38,8 @@ interface GroupTableEntity : Entity<GroupTableEntity>{
 object GroupUserPairTable : Table<GroupUserPairIdentity>("group_user_pair"){
     val userId = int("userId").primaryKey().bindTo { it.userId }
     val groupId = int("groupId").primaryKey().bindTo { it.groupId }
+    val userName = varchar("userName").bindTo { it.userName }
+    val groupName = varchar("groupName").bindTo { it.groupName }
 }
 
 interface GroupUserPairIdentity : Entity<GroupUserPairIdentity>{
@@ -45,4 +47,20 @@ interface GroupUserPairIdentity : Entity<GroupUserPairIdentity>{
 
     val userId : Int
     val groupId : Int
+    val userName : String
+    val groupName : String
+}
+
+object AuditTable : Table<AuditTableEntity>("audit_table"){
+    val userName1 = varchar("userName1").bindTo { it.userName1 }
+    val userName2 = varchar("userName2").bindTo { it.userName2 }
+    val amount = int("amount").bindTo { it.amount }
+}
+
+interface AuditTableEntity : Entity<AuditTableEntity>{
+    companion object : Entity.Factory<AuditTableEntity>()
+
+    val userName1 : String
+    val userName2 : String
+    val amount : Int
 }
