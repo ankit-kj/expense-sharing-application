@@ -23,12 +23,30 @@ fun Application.configureRouting() {
         post("/addUser"){
             val newUserDraft = call.receive<UserDraft>()
             val newUser = repository.addUser(newUserDraft)
+
+            if(newUser == null) {
+                call.respond(HttpStatusCode.BadRequest , "No such group exists ...enter a valid group name")
+                return@post
+            }
+
             call.respond(newUser)
         }
 
-        put("/addGroup"){
-            // usera are already exsisting we are just forming a group out of them
-            // so we are kind of updating therefore using put instead of post
+        post("/addGroup"){
+
+            val name = call.parameters["groupName"]
+            if(name == null) {
+                call.respond(HttpStatusCode.BadRequest,"Group Name cannot be null")
+                return@post
+            }
+
+            val id =repository.addGroup(name)
+            if(id == -1){
+                call.respond(HttpStatusCode.BadRequest , "Group already exists")
+                return@post
+            }
+
+            call.respond(Pair(id,name))
         }
 
         post("/addTransaction"){

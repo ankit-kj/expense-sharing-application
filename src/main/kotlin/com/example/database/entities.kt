@@ -21,3 +21,28 @@ interface UserTableEntity : Entity<UserTableEntity>{
     val email : String
     val mobile : String
 }
+
+object GroupTable : Table<GroupTableEntity>("groups"){
+    val groupId = int("groupId").primaryKey().bindTo { it.groupId }
+    val groupName = varchar("groupName").bindTo{it.groupName}
+}
+
+interface GroupTableEntity : Entity<GroupTableEntity>{
+    companion object : Entity.Factory<GroupTableEntity>()
+
+    val groupId : Int
+    val groupName : String
+
+}
+
+object GroupUserPairTable : Table<GroupUserPairIdentity>("group_user_pair"){
+    val userId = int("userId").primaryKey().bindTo { it.userId }
+    val groupId = int("groupId").primaryKey().bindTo { it.groupId }
+}
+
+interface GroupUserPairIdentity : Entity<GroupUserPairIdentity>{
+    companion object : Entity.Factory<GroupUserPairIdentity>()
+
+    val userId : Int
+    val groupId : Int
+}
