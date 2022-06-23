@@ -5,8 +5,6 @@ class MySQLhandler {
 
     fun addUser(newUserDraft : UserDraft) : Int{
         return database.addUser(newUserDraft)
-//        if(id == -1 or id) return null
-//        return User(id , newUserDraft.name , newUserDraft.email , newUserDraft.mobile)
     }
 
     fun addGroup(groupName : String) : Int {

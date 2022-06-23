@@ -6,7 +6,6 @@ import com.example.database.UserTable
 import org.ktorm.database.Database
 import org.ktorm.dsl.*
 import org.ktorm.support.mysql.insertOrUpdate
-import javax.swing.GroupLayout.Group
 
 
 
@@ -67,8 +66,6 @@ class DatabaseManager{
         if(groupNameQuery.totalRecords == 0) return -1 // no such group exists
         if(transaction.amount == 0) return 0  // no need to process something
 
-
-//        val groupQuery = ktormDatabase.from(GroupTable).select(GroupTable.groupId).where{GroupTable.groupName like groupName}
         val totalMembers = groupNameQuery.totalRecords
         val amountPerHead : Int = transaction.amount / totalMembers
         val payingMember = transaction.memberName

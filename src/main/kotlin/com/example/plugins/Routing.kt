@@ -4,6 +4,7 @@ import MySQLhandler
 import Transaction
 import User
 import UserDraft
+import groupDraft
 import io.ktor.server.routing.*
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -40,19 +41,19 @@ fun Application.configureRouting() {
 
         post("/addGroup"){
 
-            val name = call.parameters["groupName"]
-            if(name == null) {
+            val name = call.receive<groupDraft>()
+            if(name.groupName == null) {
                 call.respond(HttpStatusCode.BadRequest,"Group Name cannot be null")
                 return@post
             }
 
-            val id =repository.addGroup(name)
+            val id =repository.addGroup(name.groupName)
             if(id == -1){
                 call.respond(HttpStatusCode.BadRequest , "Group already exists")
                 return@post
             }
 
-            call.respond(Pair(id,name))
+            call.respond(Pair(id,name.groupName))
         }
 
         post("/addTransaction"){
