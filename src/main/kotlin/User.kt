@@ -18,3 +18,7 @@ class Transaction(
     val groupName : String,
     val memberName : String
 )
+
+data class GroupDraft(
+    val groupName : String
+    )

@@ -22,7 +22,7 @@ interface UserTableEntity : Entity<UserTableEntity>{
     val mobile : String
 }
 
-object GroupTable : Table<GroupTableEntity>("groups"){
+object GroupTable : Table<GroupTableEntity>("groupNames"){
     val groupId = int("groupId").primaryKey().bindTo { it.groupId }
     val groupName = varchar("groupName").bindTo{it.groupName}
 }
