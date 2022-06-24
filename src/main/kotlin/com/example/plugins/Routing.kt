@@ -1,18 +1,21 @@
 package com.example.plugins
 
+import GroupDraft
 import MySQLhandler
 import Transaction
 import User
 import UserDraft
-import groupDraft
 import io.ktor.server.routing.*
 import io.ktor.http.*
+import io.ktor.serialization.gson.*
 import io.ktor.server.application.*
+import io.ktor.server.plugins.contentnegotiation.*
 import io.ktor.server.response.*
 import io.ktor.server.request.*
 
 
 fun Application.configureRouting() {
+
 
     routing {
 
@@ -41,19 +44,21 @@ fun Application.configureRouting() {
 
         post("/addGroup"){
 
-            val name = call.receive<groupDraft>()
-            if(name.groupName == null) {
-                call.respond(HttpStatusCode.BadRequest,"Group Name cannot be null")
-                return@post
-            }
+            val name = call.receive<GroupDraft>()
+//            if(name.groupName == null) {
+//                call.respond(HttpStatusCode.BadRequest,"Group Name cannot be null")
+//                return@post
+//            }
 
             val id =repository.addGroup(name.groupName)
+
             if(id == -1){
                 call.respond(HttpStatusCode.BadRequest , "Group already exists")
                 return@post
             }
 
             call.respond(Pair(id,name.groupName))
+
         }
 
         post("/addTransaction"){

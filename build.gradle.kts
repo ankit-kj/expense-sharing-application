@@ -30,6 +30,11 @@ dependencies {
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 
+
+    // https://mvnrepository.com/artifact/io.ktor/ktor-gson
+//    implementation("io.ktor:ktor-gson:1.1.5")
+
+
     // Database
     implementation("mysql:mysql-connector-java:8.0.11")
     implementation("org.ktorm:ktorm-core:3.2.0")
