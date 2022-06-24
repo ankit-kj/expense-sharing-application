@@ -14,8 +14,8 @@ import org.ktorm.support.mysql.insertOrUpdate
 class DatabaseManager{
     private val hostname = "127.0.0.1"
     private val databaseName = "Expense_Sharing_App"
-    private val username = "root"
-    private val password = "ankit@porter"
+    private val username = ""
+    private val password = ""
 
     private val ktormDatabase : Database
 
